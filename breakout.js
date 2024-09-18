@@ -1,3 +1,8 @@
+function playAudio(audioclip){
+    let audio = new Audio(audioclip);
+    audio.play()
+}
+
 let board;
 let boardWidth = 500;
 let boardHeight = 500;
@@ -85,24 +90,30 @@ function update() {
     //bounce the ball off player paddle
     if (topCollision(ball, player) || bottomCollision(ball, player)) {
         ball.velocityY *= -1;   // flip y direction up or down
+        playAudio ("/sound effects/hit.wav")
     }
     else if (leftCollision(ball, player) || rightCollision(ball, player)) {
         ball.velocityX *= -1;   // flip x direction left or right
+        playAudio ("/sound effects/hit.wav")
     }
 
     if (ball.y <= 0) { 
         // if ball touches top of canvas
         ball.velocityY *= -1; //reverse direction
+        playAudio ("/sound effects/hit.wav")
     }
     else if (ball.x <= 0 || (ball.x + ball.width >= boardWidth)) {
         // if ball touches left or right of canvas
         ball.velocityX *= -1; //reverse direction
+        playAudio ("/sound effects/hit.wav")
     }
     else if (ball.y + ball.height >= boardHeight) {
         // if ball touches bottom of canvas
         context.font = "20px sans-serif";
         context.fillText("Game Over: Press 'Space' to Restart", 80, 400);
         gameOver = true;
+        playAudio ("/sound effects/game over.wav")
+        
     }
 
     //blocks
@@ -115,12 +126,14 @@ function update() {
                 ball.velocityY *= -1;   // flip y direction up or down
                 score += 100;
                 blockCount -= 1;
+                playAudio ("/sound effects/hit.wav")
             }
             else if (leftCollision(ball, block) || rightCollision(ball, block)) {
                 block.break = true;     // block is broken
                 ball.velocityX *= -1;   // flip x direction left or right
                 score += 100;
                 blockCount -= 1;
+                playAudio ("/sound effects/hit.wav")
             }
             context.fillRect(block.x, block.y, block.width, block.height);
         }
