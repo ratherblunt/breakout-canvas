@@ -144,6 +144,7 @@ function update() {
         score += 100*blockRows*blockColumns; //bonus points :)
         blockRows = Math.min(blockRows + 1, blockMaxRows);
         createBlocks();
+        playAudio("/sound effects/victory.wav")
     }
 
     //score
